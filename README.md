@@ -1,4 +1,4 @@
-#Quiz Generator
+# Quiz Generator
 
 - The quiz will ask user for a name input.
 - Ask the user how many questions >10 && < 100
