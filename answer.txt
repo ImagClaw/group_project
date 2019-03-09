@@ -1,0 +1,54 @@
+1. 
+printf("a.in the morning");
+printf("b.during the afternoon & and early evening");
+printf("c.late at night");
+
+
+2. 
+printf("a.fairly fast");
+printf("b.regular");
+printf("c.head down very slowly");
+
+3.
+printf("a.stand with your arms folded");
+printf("b.have one or both your hands on your hips");
+printf("c.play with your ear, touch your chin, or smooth your hair");
+
+4.
+printf("a.your legs crossed");
+printf("b.your legs stretched out or straight");
+printf("c.pone leg curled under you");
+
+5.
+printf("a.a big, appreciative laugh");
+printf("b.a quiet chuckle");
+printf("c.a sheepish smile");
+
+6.
+printf("a.make a loud entrance so everyone notices you");
+printf("b.make a quiet entrance, looking around for someone you know");
+printf("c.smake the quietest entrance, trying to stay unnoticed");
+
+7.
+printf("a.welcome the break");
+printf("b.feel extremely irritated");
+printf("c.vary between these two extremes");
+
+8.
+printf("a.red or orange");
+printf("b.black");
+printf("c.yellow or light blue");
+
+9.
+printf("a.stretched out on your back");
+printf("b.on your side, slightly curled");
+printf("c.with your head under the covers");
+
+10.
+printf("a.falling/struggling");
+printf("b.dreamless sleep");
+printf("c. dreams always pleasant");
+
+
+
+
