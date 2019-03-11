@@ -10,14 +10,20 @@
 *     - Score will be represented at the end as a percentage
 * 
 */
+#ifdef _WIN32
+#define CLEAR "cls"
+#endif
 
+#ifdef linux
+#define CLEAR "clear"
+#endif
 
 //#incuded header for program functionality
 #include<stdio.h>
-#include<conio.h>
-#include<ctype.h>
-#include<stdlib.h>
-#include<string.h>
+#include<conio.h> // Allows the use of console input/output
+#include<ctype.h> // Allows the use of toupper functions
+#include<stdlib.h> // Allows the use of system commands
+#include<string.h> // Allows the use of string
 //#include "ogden.h"
 
 // declaring functions.
@@ -52,20 +58,20 @@ int main() {
  
      // If choice H is selected, pull the Help function.
      if(choice=='H') {
-         system("cls");
+         system(CLEAR);
          help();
          printf("\n\n Press any other key to return to the main menu!");
          getchar();
-         system("cls");
+         system(CLEAR);
          goto mainhome;
 	 } else if(choice=='S') { // If choice S is selected, enter the quiz.
          // clear the screen
-         system("cls");
+         system(CLEAR);
          // ask user for their name
          printf("\n\n\n\n\n\n\n\n\n\n\t\t\tEnter your name:");
          gets(plyrName);
          // clear the screen again and displays 
-         system("cls");
+         system(CLEAR);
          printf("\n *********** Welcome %s to C Program Quiz Game *****************",plyrName);
          printf("\n\n Here are some tips you might wanna know before playing:");
          printf("\n ********************************************************************************");
@@ -77,10 +83,10 @@ int main() {
          printf("\n Press any other key to return to the main menu!");
          
          if (toupper(getch())=='Y') {
-             system("cls");
+             system(CLEAR);
 	 	    goto quiz;
          } else {
-             system("cls");
+             system(CLEAR);
              goto mainhome;
          }
      } else if (choice=='Q') {
@@ -89,18 +95,18 @@ int main() {
 
     // Identifies quiz section
     quiz:
-     system("cls");
+     system(CLEAR);
      printf("THIS IS THE QUIZ SECTION!");
      printf("\n Press any other key to return to the main menu!");
      getchar();
-     system("cls");
+     system(CLEAR);
      goto mainhome;
 
 
     // Identifies scoring section
     score:
      // clear the screen
-     system("cls");
+     system(CLEAR);
 	 score=(float)countr*100;
 	 if(score==100) { // If perfect score, print the below
 	    printf("\n\n\t\t**************** CONGRATULATION *****************");
@@ -134,7 +140,7 @@ int main() {
 
 void help()
 {
-    system("cls");
+    system(CLEAR);
     printf("\n\n                                  HELP/ABOUT\n");
     printf("\n -------------------------------------------------------------------------");
     printf("\n ............................ C program Quiz .............................");
