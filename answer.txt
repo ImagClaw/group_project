@@ -1,54 +1,62 @@
 1. 
-printf("a.in the morning");
-printf("b.during the afternoon & and early evening");
-printf("c.late at night");
-
+a.in the morning
+b.during the afternoon & and early evening
+c.late at night
+d.
 
 2. 
-printf("a.fairly fast");
-printf("b.regular");
-printf("c.head down very slowly");
+a.fairly fast
+b.regular
+c.head down very slowly
+d.
 
 3.
-printf("a.stand with your arms folded");
-printf("b.have one or both your hands on your hips");
-printf("c.play with your ear, touch your chin, or smooth your hair");
+a.stand with your arms folded
+b.have one or both your hands on your hips
+c.play with your ear, touch your chin, or smooth your hair
+d.
 
 4.
-printf("a.your legs crossed");
-printf("b.your legs stretched out or straight");
-printf("c.pone leg curled under you");
+a.your legs crossed
+b.your legs stretched out or straight
+c.pone leg curled under you
+d.
 
 5.
-printf("a.a big, appreciative laugh");
-printf("b.a quiet chuckle");
-printf("c.a sheepish smile");
+a big, appreciative laugh
+b.a quiet chuckle
+c.a sheepish smile
+d.
 
 6.
-printf("a.make a loud entrance so everyone notices you");
-printf("b.make a quiet entrance, looking around for someone you know");
-printf("c.smake the quietest entrance, trying to stay unnoticed");
+a.make a loud entrance so everyone notices you
+b.make a quiet entrance, looking around for someone you know
+c.smake the quietest entrance, trying to stay unnoticed
+d.
 
 7.
-printf("a.welcome the break");
-printf("b.feel extremely irritated");
-printf("c.vary between these two extremes");
+a.welcome the break
+b.feel extremely irritated
+c.vary between these two extremes
+d.
 
 8.
-printf("a.red or orange");
-printf("b.black");
-printf("c.yellow or light blue");
+a.red or orange
+b.black
+c.yellow or light blue
+d.
 
 9.
-printf("a.stretched out on your back");
-printf("b.on your side, slightly curled");
-printf("c.with your head under the covers");
+a.stretched out on your back
+b.on your side, slightly curled
+c.with your head under the covers
+d.
 
 10.
-printf("a.falling/struggling");
-printf("b.dreamless sleep");
-printf("c. dreams always pleasant");
-
+a.falling/struggling
+b.dreamless sleep
+c. dreams always pleasant
+d.
 
 
 
