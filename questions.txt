@@ -1,21 +1,13 @@
-
-questions 
-
-1. printf (" When do you feel your best?");
-2. printf (" You usually walk");
-3. printf (" When talking to people you");
-4. printf ("When relaxing, you sit with");
-5. printf ("When something really amuses you, you react with");
-6. printf ("When you go to a party or social gathering; Do you...");
-7. printf ("You're working very hard, concentrating hard, and you're interrupted; Do you ...");
-8. printf ("Which of the following colors do you like most?");
-9. printf ("When you are in bed at night, in those last few moments before going to sleep, you lie");
-10.printf ("You often dream that you are");
-
+When do you feel your best?
+You usually walk
+When talking to people you
+When relaxing, you sit with
+When something really amuses you, you react with
+When you go to a party or social gathering; Do you...
+You're working very hard, concentrating hard, and you're interrupted; Do you ...
+Which of the following colors do you like most?
+When you are in bed at night, in those last few moments before going to sleep, you lie
+You often dream that you are
 
 // this are questions taken from a random website https://onlinetestpad.com/en/test/14409-short-personality-test 
 
-possible outcomes with score 
- Conscientiousness: planning ahead rather than being spontaneous. 
- Extraversion: being sociable, energetic and talkative. 
-Neuroticism: inclined to worry or be vulnerable or temperamental. 
