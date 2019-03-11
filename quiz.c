@@ -68,15 +68,17 @@ int main() {
          // clear the screen
          system(CLEAR);
          // ask user for their name
-         printf("\n\n\n\n\n\n\n\n\n\n\t\t\tEnter your name:");
+         printf("\n\n\n\n\n\n\n\n\n\n\t\t\tEnter your name: ");
          gets(plyrName);
          // clear the screen again and displays 
          system(CLEAR);
-         printf("\n *********** Welcome %s to C Program Quiz Game *****************",plyrName);
+         printf("\n *********** Welcome to the C Program Quiz, %s. *****************",plyrName);
          printf("\n\n Here are some tips you might wanna know before playing:");
          printf("\n ********************************************************************************");
          printf("\n >> You will be given 4 options and you have to press A, B ,C or D for the");
          printf("\n    right option.");
+         printf("\n >> Don't fail.");
+         printf("\n >> Get over 80%% to pass.");
          printf("\n\n\t!!!!!!!!!!!!!!!!!! ALL THE BEST !!!!!!!!!!!!!!!!!!!");
          printf("\n\n\t**** IF YOU'RE READY PRESS Y TO START THE QUIZ ****");
          printf("\n\n\n Press Y  to start the game!\n");
