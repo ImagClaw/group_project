@@ -5,3 +5,9 @@
 - Questions will be randomly queried from a predefined list
 - Users receive 1 point per correct answer
 - Score will be represented at the end as a percentage
+
+
+## TODO:
+- File I/O for players score
+- Print top 3 high scores
+- Reset Scores
