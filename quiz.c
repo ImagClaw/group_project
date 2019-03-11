@@ -28,6 +28,7 @@
 
 // declaring functions.
 void help();
+void highScores();
 
 int main() {
 
@@ -48,7 +49,7 @@ int main() {
      puts("\t\t*****************************************");
      puts("\t\t > Press S to start the quiz");
      // Maybe additional features?
-     //puts("\n\t\t > Press V to view the highest score  ");
+     puts("\n\t\t > Press V to view Top 3 highest scores  ");
      //puts("\n\t\t > Press R to reset score");
      puts("\n\t\t > press H for help            ");
      puts("\n\t\t > press Q to quit             ");
@@ -89,17 +90,14 @@ int main() {
          }
      } else if (choice=='Q') {
          exit(1);
+     } else if(choice=='V') {
+         highScores();
+         goto go;
      }
 
     // Identifies quiz section
     quiz:
      q[0].question = "Who is the president of the United States (2019)?";
-     q[0].answers[0]= "Barak Obama";
-     q[0].answers[1]= "Bill Clinton";
-     q[0].answers[2]= "Donald Trump";
-     q[0].answers[3]= "George Bush";
-     q[0].goodAnswer = 2;
-     q[0].question = "Who is the president of the united states (2019)?";
      q[0].answers[0]= "Barak Obama";
      q[0].answers[1]= "Bill Clinton";
      q[0].answers[2]= "Donald Trump";
@@ -153,20 +151,14 @@ int main() {
      q[8].answers[2]= "10";
      q[8].answers[3]= "16";
      q[8].goodAnswer = 3;
-     q[9].question = "A nonagon is a shape that has how many sides?";
-     q[9].answers[0]= "8";
-     q[9].answers[1]= "9";
-     q[9].answers[2]= "6";
-     q[9].answers[3]= "10";
-     q[9].goodAnswer = 1;
-     q[10].question = "When united states was founded?";
-     q[10].answers[0]= "1776";
-     q[10].answers[1]= "1720";
-     q[10].answers[2]= "1790";
-     q[10].answers[3]= "1735";
-     q[10].goodAnswer = 0;
+     q[9].question = "When united states was founded?";
+     q[9].answers[0]= "1776";
+     q[9].answers[1]= "1720";
+     q[9].answers[2]= "1790";
+     q[9].answers[3]= "1735";
+     q[9].goodAnswer = 0;
      system(CLEAR); // clear the screen
-     for(int i=0;i<11;i++){
+     for(int i=0;i<10;i++){
          printf("Question %d:\n", i+1);
          printf("%s\n\n", q[i].question);
          printf("Possible answers are:\n\t%s\n\t%s\n\t%s\n\t%s", q[i].answers[0], q[i].answers[1], q[i].answers[2], q[i].answers[3]);
@@ -191,7 +183,13 @@ int main() {
      system(CLEAR); // clear the screen
 	 score=(float)countr/10;
      score *= 100;
-	 if(score==100) { // If perfect score, print the below
+     // Opens and writes to a file
+     FILE *fscore;
+     fscore=fopen("scores.txt", "a");
+     fprintf(fscore, "%s | %3.2f%%\n", plyrName, score);  // it is not printing :()
+     fclose(fscore);
+	 
+     if(score==100) { // If perfect score, print the below
 	    printf("\n\n\t\t**************** CONGRATULATION *****************");
         printf("\n\t You've got %3.2f%%! A PERFECT SCORE!",score);
         goto go;
@@ -232,4 +230,33 @@ void help() {
     printf("\n > The Main Menu should be enough to get you going.  Follow the prompts.");
 	printf("\n ***************************** BEST OF LUCK ******************************");
 	printf("\n ******* C PROGRAMMING QUIZ DEVELOPED BY MEJIA, OGDEN, AND WHELPLEY ******");
+}
+
+void highScores() {
+    char * name[4];
+    float numScore[4];
+    FILE *fp;
+    char * swapName;
+    float swapNum;
+
+    fp=fopen("scores.txt", "r");
+    for(int i = 0; i < 3; i++) {
+        fscanf(fp, "%s | %f%%\n", name[i], &numScore[i]);
+    }
+    for(int c = 0; c < 3; c++) {
+        if(numScore[c] < numScore[c+1]) {
+            // swap name
+            swapName = name[c];
+            name[c] = name[c+1];
+            name[c+1] = swapName;
+            // swap score
+            swapNum = numScore[c];
+            numScore[c] = numScore[c+1];
+            numScore[c+1] = swapNum;
+        }
+    }
+    for (int c = 0; c < 3; c++) {
+        printf("%s | %3.2f%%\n", name[c], numScore[c]);
+    }
+    fclose(fp);
 }
