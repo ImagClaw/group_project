@@ -142,5 +142,5 @@ void help()
     printf("\n > You need to get above an 80%% to pass, or else...");
     printf("\n > The Main Menu should be enough to get you going.  Follow the prompts.");
 	printf("\n ***************************** BEST OF LUCK ******************************");
-	printf("\n ******* C PROGRAMMING QUIZ DEVELOPED BY MAJIA, OGDEN, AND WHELPLEY ******");
+	printf("\n ******* C PROGRAMMING QUIZ DEVELOPED BY MEJIA, OGDEN, AND WHELPLEY ******");
 }
