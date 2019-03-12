@@ -91,55 +91,56 @@ int main() {
      puts("\t\t    DO YOU THINK YOU CAN HANDLE IT???    ");
      puts("\t\t*****************************************");
      puts("\t\t > Press S to start the quiz");
-     puts("\t\t > Press V to view Top 3 highest scores  ");
+     puts("\t\t > Press V to view Top 3 highest scores  *THIS IS IN BETA*");
      puts("\t\t > Press R to reset score");
      puts("\t\t > press H for help            ");
      puts("\t\t > press Q to quit             ");
      puts("\t\t_______________________________________\n\n");
      // assigns all input as an uppercase input.  This removes all "or" statements.  
      choice=toupper(getch());
-     // If choice H is selected, pull the Help function.
-     if(choice=='H') {
-         help();
-         printf("\n\n Press enter to return to the main menu!");
-         getch();
-         system(CLEAR); // clear the screen
-         goto mainhome; // return to main menu
-	 } else if(choice=='S') { // If choice S is selected, enter the quiz.
-         system(CLEAR); // clear the screen
-         // ask user for their name
-         printf("\n\n\n\n\n\n\n\n\n\n\t\t\tEnter your name: ");
-         gets(plyrName); 
-         system(CLEAR); // clear the screen
-         printf("\n ************************** Welcome to the Quiz, %s. ***************************",plyrName);
-         printf("\n\n Here are some tips you might wanna know before playing:");
-         printf("\n ********************************************************************************");
-         printf("\n >> You will be given 4 options, type the answer in verbatim.");
-         printf("\n >> Don't fail.");
-         printf("\n >> Get over 80%% to pass.");
-         printf("\n\n\t!!!!!!!!!!!!!!!!!! ALL THE BEST !!!!!!!!!!!!!!!!!!!");
-         printf("\n\n\t**** IF YOU'RE READY PRESS Y TO START THE QUIZ ****");
-         
-         if (toupper(getch())=='Y') {
-            system(CLEAR); // clear the screen
-	 	    goto quiz;
-         } else {
+     switch (choice){
+         case 'S': // If choice S is selected, Start the quiz.
              system(CLEAR); // clear the screen
+             // ask user for their name
+             printf("\n\n\n\n\n\n\n\n\n\n\t\t\tEnter your name: ");
+             gets(plyrName); 
+             system(CLEAR); // clear the screen
+             printf("\n ************************** Welcome to the Quiz, %s. ***************************", plyrName);
+             printf("\n\n Here are some tips you might wanna know before playing:");
+             printf("\n ********************************************************************************");
+             printf("\n >> You will be given 4 options, type the answer verbatim.");
+             printf("\n >> Don't fail.");
+             printf("\n >> Get over 80%% to pass.");
+             printf("\n\n\t!!!!!!!!!!!!!!!!!! ALL THE BEST !!!!!!!!!!!!!!!!!!!");
+             printf("\n\n\t**** IF YOU'RE READY PRESS 'Y' TO START THE QUIZ ****"); 
+             if (toupper(getch())=='Y') {
+                system(CLEAR); // clear the screen
+	 	        goto quiz;
+             } else {
+                 system(CLEAR); // clear the screen
+                 goto mainhome;
+             } 
+         case 'V': // If choice V is selected, sort and list only the top 3 scores.
+             highScores();
+             printf("\n\n Press enter to go to the main menu.");
+             getch();
              goto mainhome;
-         }
-     } else if (choice=='Q') {
-         exit(1);
-     } else if (choice=='V') {
-         highScores();
-         printf("\n\n Press enter to go to the main menu.");
-         getch();
-         goto mainhome;
-     } else if (choice=='R') {
-         fclose(fopen("./scores.txt", "w"));
-         printf(" All scores reset.\n\n");
-         printf("\n\n Press enter to go to the main menu.");
-         getch();
-         goto mainhome;
+         case 'R': // If choice R is selected, remove all scores in score.txt
+             fclose(fopen("./scores.txt", "w"));
+             printf(" All scores reset.\n\n");
+             printf("\n\n Press enter to go to the main menu.");
+             getch();
+             goto mainhome;
+         case 'H': // If choice H is selected, pull the Help function.
+             help();
+             printf("\n\n Press enter to return to the main menu!");
+             getch();
+             system(CLEAR); // clear the screen
+             goto mainhome; // return to main menu
+         case 'Q':
+             exit(1);
+         default:
+             puts("You didn't enter a choice.");
      }
 
     // Identifies quiz section
@@ -206,6 +207,7 @@ int main() {
      q[9].goodAnswer = 0;
      system(CLEAR); // clear the screen
      for(int i=0;i<10;i++){
+         system(CLEAR); // clear the screen
          printf("Question %d:\n", i+1);
          printf("%s\n\n", q[i].question);
          printf("Possible answers are:\n\t%s\n\t%s\n\t%s\n\t%s", q[i].answers[0], q[i].answers[1], q[i].answers[2], q[i].answers[3]);
@@ -214,13 +216,14 @@ int main() {
          char * ans = (char *)malloc(64);
          gets(ans);
          if(strcmp(ans, q[i].answers[x]) == 0) {
-            printf("\nCorrect!\n");
-            printf(" Press enter to continue to the next question.\n");
+            printf("\n Correct!\n");
+            printf(" Press enter to continue to the next question.");
             countr++;
          } else {
             printf(" Wrong, the answer was %s\n\n", q[i].answers[x]);
          }
          getch();
+         free(ans);
      }
      goto score;
 
@@ -237,18 +240,20 @@ int main() {
 	 
      if(score==100) { // If perfect score, print the below
 	    printf("\n\n\t\t**************** CONGRATULATION *****************");
-        printf("\n\t You've got %3.2f%%! A PERFECT SCORE!",score);
+        printf("\n\t\t      You've got %3.2f%%! A PERFECT SCORE!\n\n",score);
         goto go;
      } else if(score>=80.00) { // If greater than 80, print the below
 	    printf("\n\n\n \t\t**************** CONGRATULATION ****************");
-	    printf("\n\t\t\t\t YOU'VE PASSEED!!!!!!!!!");
-	    printf("\n\t\t\t\t Your score is: %3.2f%%",score);
-	    printf("\n\t\t\t\t Thank You !!");
+	    printf("\n\t\t\t     YOU'VE PASSEED!!!!!!!!!");
+	    printf("\n\t\t\t      Your score is: %3.2f%%",score);
+	    printf("\n\t\t\t          Thank You !!");
+        printf("\n\n\n \t\t**************** CONGRATULATION ****************\n\n");
 	 } else { // If not 100 or greater than 80%, print the below
 	    printf("\n\n\t******** SORRY YOU DIDN'T PASS ********");
-        printf("\n\t\t Your score is: %3.2f%%",score);
-	    printf("\n\t\t Thanks for your participation");
-	    printf("\n\t\t TRY AGAIN");
+        printf("\n\t         Your score is: %3.2f%%",score);
+	    printf("\n\t     Thanks for your participation");
+	    printf("\n\t\t      TRY AGAIN\n");
+        printf("\t******** SORRY YOU DIDN'T PASS ********\n\n");
         goto go;
      }
 
@@ -311,9 +316,6 @@ void highScores() {
                 }
             }
             printf("\t\t\t#%d \t%s \t| \t%3.2f%%\n", c+1, name[c], numScore[c]); 
-    }
-        
-        
-    
+        }
     fclose(fp);
 }
