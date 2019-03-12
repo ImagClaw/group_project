@@ -12,15 +12,47 @@
 */
 #ifdef _WIN32
 #define CLEAR "cls"
+#include <conio.h> // Allows the use of console input/output
 #endif
 
 #ifdef linux
 #define CLEAR "clear"
+#include <termios.h>
+static struct termios old, new;
+
+/* Initialize new terminal i/o settings */
+void initTermios(int echo) 
+{
+  tcgetattr(0, &old); /* grab old terminal i/o settings */
+  new = old; /* make new settings same as old settings */
+  new.c_lflag &= ~ICANON; /* disable buffered i/o */
+  if (echo) {
+      new.c_lflag |= ECHO; /* set echo mode */
+  } else {
+      new.c_lflag &= ~ECHO; /* set no echo mode */
+  }
+  tcsetattr(0, TCSANOW, &new); /* use these new terminal i/o settings now */
+}
+
+/* Restore old terminal i/o settings */
+void resetTermios(void) 
+{
+  tcsetattr(0, TCSANOW, &old);
+}
+
+/* Read 1 character - echo defines echo mode */
+char getch_(int echo) 
+{
+  char ch;
+  initTermios(echo);
+  ch = getchar();
+  resetTermios();
+  return ch;
+}
 #endif
 
 //#incuded header for program functionality
 #include <stdio.h> // Allows standard input/output
-#include <conio.h> // Allows the use of console input/output
 #include <ctype.h> // Allows the use of toupper functions
 #include <stdlib.h> // Allows the use of system commands
 #include <string.h> // Allows the use of string functions
@@ -48,21 +80,18 @@ int main() {
      puts("\t\t    DO YOU THINK YOU CAN HANDLE IT???    ");
      puts("\t\t*****************************************");
      puts("\t\t > Press S to start the quiz");
-     // Maybe additional features?
-     puts("\n\t\t > Press V to view Top 3 highest scores  ");
-     //puts("\n\t\t > Press R to reset score");
-     puts("\n\t\t > press H for help            ");
-     puts("\n\t\t > press Q to quit             ");
-     puts("\n\t\t_______________________________________\n\n");
-     // assigns all input as an uppercase input.  This removes all "or" statements.
+     puts("\t\t > Press V to view Top 3 highest scores  ");
+     puts("\t\t > Press R to reset score");
+     puts("\t\t > press H for help            ");
+     puts("\t\t > press Q to quit             ");
+     puts("\t\t_______________________________________\n\n");
+     // assigns all input as an uppercase input.  This removes all "or" statements.  
      choice=toupper(getch());
- 
      // If choice H is selected, pull the Help function.
      if(choice=='H') {
-         system(CLEAR); // clear the screen
          help();
-         printf("\n\n Press any other key to return to the main menu!");
-         getchar();
+         printf("\n\n Press enter to return to the main menu!");
+         getch();
          system(CLEAR); // clear the screen
          goto mainhome; // return to main menu
 	 } else if(choice=='S') { // If choice S is selected, enter the quiz.
@@ -74,15 +103,14 @@ int main() {
          printf("\n ************************** Welcome to the Quiz, %s. ***************************",plyrName);
          printf("\n\n Here are some tips you might wanna know before playing:");
          printf("\n ********************************************************************************");
-         printf("\n >> You will be given 4 options and you have to press A, B ,C or D for the");
-         printf("\n    right option.");
+         printf("\n >> You will be given 4 options, type the answer in verbatim.");
          printf("\n >> Don't fail.");
          printf("\n >> Get over 80%% to pass.");
          printf("\n\n\t!!!!!!!!!!!!!!!!!! ALL THE BEST !!!!!!!!!!!!!!!!!!!");
          printf("\n\n\t**** IF YOU'RE READY PRESS Y TO START THE QUIZ ****");
          
          if (toupper(getch())=='Y') {
-             system(CLEAR); // clear the screen
+            system(CLEAR); // clear the screen
 	 	    goto quiz;
          } else {
              system(CLEAR); // clear the screen
@@ -90,9 +118,17 @@ int main() {
          }
      } else if (choice=='Q') {
          exit(1);
-     } else if(choice=='V') {
+     } else if (choice=='V') {
          highScores();
-         goto go;
+         printf("\n\n Press enter to go to the main menu.");
+         getch();
+         goto mainhome;
+     } else if (choice=='R') {
+         fclose(fopen("./scores.txt", "w"));
+         printf(" All scores reset.\n\n");
+         printf("\n\n Press enter to go to the main menu.");
+         getch();
+         goto mainhome;
      }
 
     // Identifies quiz section
@@ -103,7 +139,7 @@ int main() {
      q[0].answers[2]= "Donald Trump";
      q[0].answers[3]= "George Bush";
      q[0].goodAnswer = 2;
-     q[1].question = "Name the largest Ocean in the world?";
+     q[1].question = "What is the largest ocean in the world?";
      q[1].answers[0]= "Atlantic Ocean";
      q[1].answers[1]= "Pacific Ocean";
      q[1].answers[2]= "Artic Ocean";
@@ -167,14 +203,13 @@ int main() {
          char * ans = (char *)malloc(64);
          gets(ans);
          if(strcmp(ans, q[i].answers[x]) == 0) {
-            printf("\n Correct!\n");
+            printf("\nCorrect!\n");
+            printf(" Press enter to continue to the next question.\n");
             countr++;
          } else {
-            printf("Wrong, the answer was %s\n\n", q[i].answers[x]);
+            printf(" Wrong, the answer was %s\n\n", q[i].answers[x]);
          }
-         puts("\nPress any key to continue...");
-         getchar();
-
+         getch();
      }
      goto score;
 
@@ -208,11 +243,13 @@ int main() {
 
     // Identifies user choice section to either return to main menu or take the quiz again.
 	go:
-	 puts("\n\n Press Y if you want to take the quiz again");
+	 puts(" Press Y if you want to take the quiz again");
 	 puts(" Press any key if you want to go main menu");
-	 if (toupper(getchar())=='Y') {
+	 if (toupper(getch())=='Y') {
+        system(CLEAR); // clear the screen
 	 	goto quiz;
      } else {
+        system(CLEAR); // clear the screen
         goto mainhome;
      }
 
@@ -227,12 +264,13 @@ void help() {
     printf("\n ............................ C program Quiz .............................");
     printf("\n > What do you need help for?  It's a quiz...");
     printf("\n > You need to get above an 80%% to pass, or else...");
-    printf("\n > The Main Menu should be enough to get you going.  Follow the prompts.");
+    printf("\n > The Main Menu should be enough to get you going.  Follow the prompts.\n\n");
 	printf("\n ***************************** BEST OF LUCK ******************************");
 	printf("\n ******* C PROGRAMMING QUIZ DEVELOPED BY MEJIA, OGDEN, AND WHELPLEY ******");
 }
 
 void highScores() {
+    system(CLEAR); // clear the screen
     char * name[4];
     float numScore[4];
     FILE *fp;
@@ -240,23 +278,31 @@ void highScores() {
     float swapNum;
 
     fp=fopen("scores.txt", "r");
-    for(int i = 0; i < 3; i++) {
-        fscanf(fp, "%s | %f%%\n", name[i], &numScore[i]);
-    }
-    for(int c = 0; c < 3; c++) {
-        if(numScore[c] < numScore[c+1]) {
-            // swap name
-            swapName = name[c];
-            name[c] = name[c+1];
-            name[c+1] = swapName;
-            // swap score
-            swapNum = numScore[c];
-            numScore[c] = numScore[c+1];
-            numScore[c+1] = swapNum;
+    printf("\t\t*************** TOP 3 HIGH SCORES ***************\n");
+        for(int i = 0; i < 3; i++) {
+            fscanf(fp, "%s | %f%%\n", name[i], &numScore[i]);
         }
+        
+        for(int c = 0; c < 3; c++) {
+            for(int d = c; d < 3 - c; d++) {
+                if(numScore[d] < numScore[d+1]) {
+
+                    // swap name
+                    swapName = name[d];
+                    name[d] = name[d+1];
+                    name[d+1] = swapName;
+
+                    // swap score
+                    swapNum = numScore[d];
+                    numScore[d] = numScore[d+1];
+                    numScore[d+1] = swapNum;
+                    
+                }
+            }
+            printf("\t\t\t#%d \t%s \t| \t%3.2f%%\n", c+1, name[c], numScore[c]); 
     }
-    for (int c = 0; c < 3; c++) {
-        printf("%s | %3.2f%%\n", name[c], numScore[c]);
-    }
+        
+        
+    
     fclose(fp);
 }

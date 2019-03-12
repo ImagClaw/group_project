@@ -1,5 +1,4 @@
-Dal | 20.00%
-Ogden | 40.00%
-Travis | 80.00%
-Kurtis | 100.00%
-Dal | 10.00%
+Dal | 50.00%
+Travis | 55.00%
+Ogden | 80.00%
+Barton | 100.00%
