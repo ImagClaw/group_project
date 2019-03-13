@@ -11,3 +11,4 @@
 - ~File I/O for players score~
 - ~Print top 3 high scores~
 - ~Reset Scores~
+- add functionality to allow question input from different file.
