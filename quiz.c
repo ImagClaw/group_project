@@ -67,7 +67,7 @@ char getche(void)
 #include <ctype.h> // Allows the use of toupper functions
 #include <stdlib.h> // Allows the use of system commands
 #include <string.h> // Allows the use of string functions
-#include "questions.h" // Allows 
+#include "questions.h" // Used for the struct
 
 // declaring functions.
 void help();
@@ -91,7 +91,7 @@ int main() {
      puts("\t\t    DO YOU THINK YOU CAN HANDLE IT???    ");
      puts("\t\t*****************************************");
      puts("\t\t > Press S to start the quiz");
-     puts("\t\t > Press V to view Top 3 highest scores  *THIS IS IN BETA*");
+     puts("\t\t > Press V to view Top 3 highest scores");
      puts("\t\t > Press R to reset score");
      puts("\t\t > press H for help            ");
      puts("\t\t > press Q to quit             ");
@@ -300,7 +300,7 @@ void highScores() {
         }
         
         for(int c = 0; c < 3; c++) {
-            for(int d = c; d < 3 - c; d++) {
+            for(int d = 0; d < 3 - c; d++) {
                 if(numScore[d] < numScore[d+1]) {
 
                     // swap name
