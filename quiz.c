@@ -292,7 +292,7 @@ void highScores() {
     FILE *fp;
     char * swapName;
     float swapNum;
-    char str[128];
+    char str[32];
     
     fp=fopen("scores.txt", "r"); // read scores.txt and assign it to the var fp as a read-only var   
 
