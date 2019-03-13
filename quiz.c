@@ -292,24 +292,18 @@ void highScores() {
     FILE *fp;
     char * swapName;
     float swapNum;
+    char str[128];
     
-    fp=fopen("scores.txt", "r"); // read scores.txt and assign it to the var fp as a read-only var
+    fp=fopen("scores.txt", "r"); // read scores.txt and assign it to the var fp as a read-only var   
 
-    fseek(fp, 0L, SEEK_END); // seek through fp until the end.
-    
-    int res = ftell(fp); // calculating the size of the file
-    
-     // Reset file ptr to start    
-
-    if(fp == NULL) { // Check if scores.txt exists or not
-        printf("\n\n FILE DOESNT EXIST, TAKE THE QUIZ TO GENERATE THIS FILE");
-    } else if (res < 0) { // 
+    if (fp == NULL) { // Check if scores.txt exists or not
+        perror("\n\n FILE DOESNT EXIST, TAKE THE QUIZ TO GENERATE THIS FILE");
+    } else if (fgets (str, 60, fp)==NULL) { // 
         printf("\n\n FILE EXISTS, NO SCORES TO PARSE");
     } else {
-        rewind(fp);
         printf("\t\t*************** TOP 3 HIGH SCORES ***************\n");
         for(int i = 0; i < 3; i++) {
-            fgets(fp, "%s | %f%%\n", name[i], &numScore[i]);
+            fscanf(fp, "%s | %f%%\n", name[i], &numScore[i]);
             //printf("%s | %f%%\n", name[i], numScore[i]);
         }
 
