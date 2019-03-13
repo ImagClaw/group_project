@@ -292,13 +292,27 @@ void highScores() {
     FILE *fp;
     char * swapName;
     float swapNum;
+    
+    fp=fopen("scores.txt", "r"); // read scores.txt and assign it to the var fp as a read-only var
 
-    fp=fopen("scores.txt", "r");
-    printf("\t\t*************** TOP 3 HIGH SCORES ***************\n");
+    fseek(fp, 0L, SEEK_END); // seek through fp until the end.
+    
+    int res = ftell(fp); // calculating the size of the file
+    
+     // Reset file ptr to start    
+
+    if(fp == NULL) { // Check if scores.txt exists or not
+        printf("\n\n FILE DOESNT EXIST, TAKE THE QUIZ TO GENERATE THIS FILE");
+    } else if (res < 0) { // 
+        printf("\n\n FILE EXISTS, NO SCORES TO PARSE");
+    } else {
+        rewind(fp);
+        printf("\t\t*************** TOP 3 HIGH SCORES ***************\n");
         for(int i = 0; i < 3; i++) {
-            fscanf(fp, "%s | %f%%\n", name[i], &numScore[i]);
+            fgets(fp, "%s | %f%%\n", name[i], &numScore[i]);
+            //printf("%s | %f%%\n", name[i], numScore[i]);
         }
-        
+
         for(int c = 0; c < 3; c++) {
             for(int d = 0; d < 3 - c; d++) {
                 if(numScore[d] < numScore[d+1]) {
@@ -312,10 +326,12 @@ void highScores() {
                     swapNum = numScore[d];
                     numScore[d] = numScore[d+1];
                     numScore[d+1] = swapNum;
-                    
+
                 }
             }
             printf("\t\t\t#%d \t%s \t| \t%3.2f%%\n", c+1, name[c], numScore[c]); 
         }
-    fclose(fp);
+        
+    } 
+    fclose(fp);          
 }
