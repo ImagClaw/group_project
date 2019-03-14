@@ -52,11 +52,13 @@ void highScores() {
     system(CLEAR); // clear the screen
     char * name[4];
     float numScore[4];
-    FILE *fp;
+    FILE *fp; // read scores.txt and assign it to the var fp as a read-only var
+    //int ch = getc(fp);
     char * swapName;
     float swapNum;
     char str[256];
-    
+    //int lncount = 0;
+
     fp=fopen("scores.txt", "r"); // read scores.txt and assign it to the var fp as a read-only var   
 
     if (fp == NULL) { // Check if scores.txt exists or not
