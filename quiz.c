@@ -67,7 +67,7 @@ void highScores() {
         printf("\n\n FILE EXISTS, NO SCORES TO PARSE");
     } else {
         printf("\t\t*************** TOP 3 HIGH SCORES ***************\n");
-        for(int i = 0; i < 3; i++) {
+        for(int i = 0; i < 4; i++) {
             fscanf(fp, "%s | %f%%\n", name[i], &numScore[i]);
             //printf("%s | %f%%\n", name[i], numScore[i]);
         }
