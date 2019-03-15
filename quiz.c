@@ -48,12 +48,12 @@ void help() {
 
 void highScores() {
 
-    struct highscore {
-        char name[64];
-        float score;
-    };
-
-    struct highscore values[15], temp;
+    //struct highscore {
+    //    char name[64];
+    //    float score;
+    //};
+//
+    //struct highscore values[15], temp;
 
     char s[64];
     float n;
