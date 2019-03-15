@@ -165,9 +165,12 @@ void mainHome() {
         case 'Q':
             exit(1);
         default:
-            puts("You didn't enter a choice.");
-            //mainHome();// return to main menu
-            //break; 
+            puts(" Clearly not a choice... >_>");
+            printf("\n\n Press enter to return to the main menu!");
+            getch();
+            system(CLEAR);
+            mainHome();// return to main menu
+            break; 
     }
 }
 
