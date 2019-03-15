@@ -4,8 +4,6 @@
 * 
 * Quiz Generator:
 *     - The quiz will ask user for a name input.
-*     - Ask the user how many questions >10 && < 100
-*     - Questions will be randomly queried from a predefined list
 *     - Users receive 1 point per correct answer
 *     - Score will be represented at the end as a percentage
 * 
@@ -17,7 +15,7 @@
 #include <ctype.h> // Allows the use of toupper functions
 #include <stdlib.h> // Allows the use of system commands
 #include <string.h> // Allows the use of string functions
-#include "questions.h" // Used for the struct
+#include "structs.h" // Used for the struct
 #include "os.h"
 
 // declaring functions.
@@ -49,50 +47,63 @@ void help() {
 }
 
 void highScores() {
+
+    struct highscore {
+        char name[64];
+        float score;
+    };
+
+    struct highscore values[15], temp;
+
+    char s[64];
+    float n;
+    int i = 0, lncount = 0;
+    FILE *fp; // assign it to the var fp as a read-only var
+
     system(CLEAR); // clear the screen
-    char * name[4];
-    float numScore[4];
-    FILE *fp; // read scores.txt and assign it to the var fp as a read-only var
-    //int ch = getc(fp);
-    char * swapName;
-    float swapNum;
-    char str[256];
-    //int lncount = 0;
+    fp = fopen("./scores.txt", "r"); // opens scores.txt as read only
+    
+    // if file doesnt exist, error out.
+    if (!fp) {
+        perror("FILE NOT FOUND");
+    }
 
-    fp=fopen("scores.txt", "r"); // read scores.txt and assign it to the var fp as a read-only var   
+    // Get the amount of lines from scores.txt
+    for (int c = getc(fp); c != EOF; c = getc(fp)) {
+    if (c == '\n') // Increment count if this character is newline 
+        lncount = lncount + 1;
+    }
+    
+    //printf("Your file has %d lines.\n", lncount);  // this was used to test the line number count
 
-    if (fp == NULL) { // Check if scores.txt exists or not
-        perror("\n\n FILE DOESNT EXIST, TAKE THE QUIZ TO GENERATE THIS FILE");
-    } else if (fgets (str, 60, fp)==NULL) { // 
-        printf("\n\n FILE EXISTS, NO SCORES TO PARSE");
-    } else {
-        printf("\t\t*************** TOP 3 HIGH SCORES ***************\n");
-        for(int i = 0; i < 4; i++) {
-            fscanf(fp, "%s | %f%%\n", name[i], &numScore[i]);
-            //printf("%s | %f%%\n", name[i], numScore[i]);
-        }
+    rewind(fp);
+    while (fscanf(fp, "%s | %f%%\n", s, &n) != EOF) {
+        strcpy(values[i].name, s);
+        values[i].score = n;
+        i++;
+    }
+    fclose(fp);
 
-        for(int c = 0; c < 3; c++) {
-            for(int d = 0; d < 3 - c; d++) {
-                if(numScore[d] < numScore[d+1]) {
-
-                    // swap name
-                    swapName = name[d];
-                    name[d] = name[d+1];
-                    name[d+1] = swapName;
-
-                    // swap score
-                    swapNum = numScore[d];
-                    numScore[d] = numScore[d+1];
-                    numScore[d+1] = swapNum;
-
-                }
+    for (int x = 0; x < lncount; x++) {
+        for (int j = 0; j <= lncount - 1; j++) {
+            if (values[j].score < values[j+1].score) {
+                temp = values[j];
+                values[j] = values[j+1];
+                values[j+1] = temp;
             }
-            printf("\t\t\t#%d \t%s \t| \t%3.2f%%\n", c+1, name[c], numScore[c]); 
         }
-        
-    } 
-    fclose(fp);          
+        //printf("%s | %3.2f%%\n", values[x].name, values[x].score);
+    }
+
+    printf("\t\t*************** TOP 3 HIGH SCORES ***************\n");
+    for (int y = 0; y < 3; y++) {
+        printf("\t\t\t#%d \t%s \t| \t%3.2f%%\n", y+1, values[y].name, values[y].score);
+    }
+
+    //for (i = 0; i < s; i++) {
+    //    printf("\t\t\t#%d \t%s \t| \t%3.2f%%\n", lncount+1, hs[i].name, hs[i].score); 
+    //}
+              
 }
 
 void mainHome() {
