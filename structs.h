@@ -1,5 +1,5 @@
-#ifndef QUESTION_HEADER  //begin header guard
-#define QUESTION_HEADER
+#ifndef STRUCT_HEADER  //begin header guard
+#define STRUCT_HEADER
     
 typedef struct quiz{
     char* question;
