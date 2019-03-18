@@ -19,4 +19,4 @@ typedef struct highscore {
 
 highscore values[15], temp;
 
-#endif //QUESTION_HEADER //end header guard
+#endif //STRUCT_HEADER //end header guard
